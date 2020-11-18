@@ -110,7 +110,7 @@
       - Content-Type: application/json
       - Authorization: 인증 과정에서 얻은 API Token
 
-* HTTP Request Body
+* HTTP Request Body (값 항목에 채워져 있는 데이터는 예시값임)
   ```
     {
        "deviceId": "[DEVICE-UUID]",
@@ -188,7 +188,7 @@
       - Content-Type: application/json
       - Authorization: 인증 과정에서 얻은 API Token
 
-* HTTP Request Body
+* HTTP Request Body (값 항목에 채워져 있는 데이터는 예시값임)
   ```
     {
        "clientId": "796b1d446b054d0b9e95191720d87528",
