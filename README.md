@@ -30,8 +30,8 @@
 ### 2.1 서버 정보
   | 서버 | URL |   설명 |
   |:-----|:----|:-------|
-  |테스트 서버|https://stream.mobideep.co.kr/test| 테스트 서버의 URL | 
-  |상용 서버|https://stream.mobideep.co.kr/prod| 상용 서버의 URL | 
+  |테스트 서버|https://stream.mobideep.co.kr/dev| 테스트 서버의 URL | 
+  |상용 서버|https://stream.mobideep.co.kr| 상용 서버의 URL | 
   ||||
 ****
 </br>
@@ -110,7 +110,7 @@
       - Content-Type: application/json
       - Authorization: 인증 과정에서 얻은 API Token
 
-* HTTP Request Body (값 항목에 채워져 있는 데이터는 예시값임)
+* HTTP Request Body (채워져 있는 값은 예시 값)
   ```
     {
        "deviceId": "[DEVICE-UUID]",
@@ -120,7 +120,7 @@
        "type": 255,
        "data": "06221E0079096C0957063E0608000500090005000100",
        "ext": {
-       } 
+       }
     }
   ```
  * Path 파라미터 설명
@@ -188,7 +188,7 @@
       - Content-Type: application/json
       - Authorization: 인증 과정에서 얻은 API Token
 
-* HTTP Request Body (값 항목에 채워져 있는 데이터는 예시값임)
+* HTTP Request Body (채워져 있는 값은 예시 값)
   ```
     {
        "clientId": "796b1d446b054d0b9e95191720d87528",
