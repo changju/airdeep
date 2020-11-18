@@ -37,8 +37,14 @@
 
 ## 3.  서비스 연동
 ### 3.1 서비스 연동 콜 플로우
-<img src="https://github.com/changju/airdeep/raw/master/airdeep-seq-1.jpg" width="60%" title="air deep flow diagram" alt="Airdeepflow"></img>
-<br/>
+1. 인증 토큰 요청
+   * 인증 토큰 발급 후 이 후 AIR-DEEP 으로의 모든 요청은 TOKEN 을 포함하여야 한다. 
+2. 센서 데이터 전달
+   * 
+3. 흡연 탐지 결과 전달
+
+    <img src="https://github.com/changju/airdeep/raw/master/airdeep-seq-1.jpg" width="60%" title="air deep flow diagram" alt="Airdeepflow"></img>
+</br>
 
 ### 3.2 서비스 연동 API
 * API Interface format
@@ -107,8 +113,8 @@
 * HTTP Request Body
   ```
     {
-       "deviceId": "[DEVICE-ID]",
-       "msgId": "[MESSAGE-ID]"
+       "deviceId": "[DEVICE-UUID]",
+       "msgId": "[MESSAGE-UUID]"
        "msgDate": "2020-11-11T14:54:05.349+09:00",
        "msgDateFormat": "yyyy-MM-dd HH:mm:ssZ",
        "type": 255,
@@ -133,9 +139,26 @@
       |msgDate| Datetime | msgDateFormat 에 따른 메시지 생성 시간 |
       |msgDateFormat| String | msgDate 의 형식을 나타낸다. |
       |type| Integer | data 에 포함된 데이터 타입을 나타낸다. <br> sensor data: 255  |
-      |data| String | 위 타입에 따른 데이터 값 |
+      |data| String | 위 타입에 따른 데이터 값 () |
       |ext| | 확장을 고려하여 사용 예정 |
       ||||
+    <br>
+ * 흡연 센서 데이터(data 파라미터)
+   * Endian 변환을 하여 값을 가져오도록 한다.
+      | No | ID / Name | Length (Byte) | 값/비고 |
+      |:--------|:---------|:---------|:---------|
+      |1| Company Code | 2 | 0x226 : Alticast |
+      |2| Period | 2 | 데이터 수집 주기. 초단위. |
+      |3| ECO2 Max | 2 | 수집주기에서 발생한 최대 Equivalent CO2값. 단위는 ppm이다. |
+      |4| ECO2 Current | 2 | 데이터 전달 시 Equivalent CO2값. 단위는 ppm이다. |
+      |5| TVOC Max | 2 | 수집주기에서 발생한 최대 Total VOC(휘발성 유기화합물, 악취)값. 단위는 ppb이다. |
+      |6| TVOC Current | 2 | 데이터 전달 시 Total VOC(휘발성 유기화합물, 악취)값. 단위는 ppb이다. |
+      |7| PM2.5 Max | 2 | 수집주기에서 발생한 최대 PM2.5값. 단위는 ug/m3이다. |
+      |8| PM2.5 Current | 2 | 데이터 전달 시 PM2.5값. 단위는 ug/m3이다. |
+      |9| PM10 Max | 2 | 수집주기에서 발생한 최대 PM10값. 단위는 ug/m3이다. |
+      |10| PM10 Current | 2 | 데이터 전달 시 PM10값. 단위는 ug/m3이다. |
+      |11| Report Reason | 2 | 주기보고시의 보고 상태.<br>0 : Unkown<br>1 : 주기에 의한 정상 보고<br>2 : 주기보고 간격 변경에 의해<br>수집주기중 보고<br>3 : Sleep 진입전 보고<br>4 : Sleep 진입후 세팅된 ECO2<br>Threshold를 넘은 경우 Wakeup이되어 보고 |
+      |||||
     <br>
 * HTTP Response Body
   ```
