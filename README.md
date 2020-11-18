@@ -159,11 +159,10 @@
       |10| PM10 Current | 2 | 데이터 전달 시 PM10값. 단위는 ug/m3이다. |
       |11| Report Reason | 2 | 주기보고시의 보고 상태.<br>0 : Unkown<br>1 : 주기에 의한 정상 보고<br>2 : 주기보고 간격 변경에 의해<br>수집주기중 보고<br>3 : Sleep 진입전 보고<br>4 : Sleep 진입후 세팅된 ECO2<br>Threshold를 넘은 경우 Wakeup이되어 보고 |
       |||||
-    <br>
 * HTTP Response Body
   ```
     {
-       "code": 200,
+       "code": 100,
        "msgId": "[MESSAGE-ID]"
     }
   ```
@@ -171,7 +170,7 @@
 
       | 파라미터 | 타입 | 설명 |
       |:--------|:---------|:---------|
-      |code| Integer | 결과 전달, 200 (Success) |
+      |code| Integer | 결과 전달, 100 (RETURN_OK) |
       |msgId| String | 요청시 전달한 msgId 를 응답으로 전달한다. |
       ||||
 
@@ -229,16 +228,56 @@
 
 ****
 
+### *Appendix A. HTTP STATUS CODE 정의*
+  | HTTP STATUS CODE | 설명 |
+  |:-----------------|:-----|
+  |200 OK| 정상적으로 처리 정상적으로 처리 |
+  |400(Bad Request)| 파라미터 유효성 검사 중 에러 |
+  |401(Unauthorized)| API 인증 실패 |
+  |403(Forbidden)| API 접근 권한 오류 |
+  |404(Resource Not Found)| 요청 API 가 존재하지 않는 경우 (리소스가 없는 경우) |
+  |405(HTTP Method NotAllowed)|정의된 요청 Method로 요청하지 않은 경우 발생하는 에러|
+  |429(Too Many Request)|클라이언트가 지정된 시간안에 너무 많은 요청을 보내는 경우(Rate limiting)|
+  |500(Internal Server Error)|서버 내부 로직등의 예외적인 에러 ( 상세 에러내역 참조 )|
+  |502(Bad Gateway)|마이크로 서비스로 요청 후 성공 응답을 받지 못한 경우|
+  |503(Service Unavailable)|서버 유지보수, 과부하등으로 요청 처리를 할 수 없는 경우|
+  |504(Gateway Timeout)|마이크로 서비스로 요청 후 응답 Timeout 이 발생한 경우|
+  |||
+  <br>
 
+* A1.1 성공 응답 Body
+  ```
+  요청에 대하여 성공인 경우는 HTTP Status code를 200(성공), 응답 Body 값은 각 각의 API 에서 정의된 값으로 반환한다.
+  ```
+      
 
+* 실패 응답 Body
+  ```
+  실패인 경우 HTTP Status Code 값을 4xx, 5xx 반환한다.
+  응답 Body에 정의된 code 값을 통하여 상세 에러내역을 확인할 수 있다
+  ```
 
+  | Code | Message | 설명 |
+  |:-----|:-----|:-----|
+  |100| RETURN_OK | 정상적으로 처리 |
+  |101| RETURN_ERROR | 알 수 없는 오류 |
+  |102| RETURN_SOCKET_ERROR | 전송 오류 |
+  |103| CLIENT_CONTACT_EXPIRE | 고객 계약기간 만료 |
+  |104| CLIENT_NOT_EXIST | 고객ID 없음 |
+  |105| REFRESH_TOKEN_NOT_EXIST | 갱신 토큰 없음 |
+  |106| ACCESS_TOKEN_EXPIRED | 토큰 만료 |
+  |107| ACCESS_TOKEN_NOT_EXIST | 토큰 없음 |
+  |108| TERMINAL_NOT_EXIST | 단말기가 존재하지 않음 |
+  |109| CLIENT_DISCORD | 토큰값 불일치 |
+  |110| ALREADY_COMMAND | 이전 명령 실행중 |
+  |111| NOTIFICATION_TYPE_INVALID | Notification Type 불일치 |
+  |112| NOTIFICATION_NOT_EXIST | Notification Type 없음 |
+  |113| NO_DATA | 데이터 없음 |
+  |114| PARAMETER_INVALID | 파라미터 오류 |
+  |115| NOT_ALLOW_IP | 잘못된 접근 IP |
+  |116| NOTIFICATION_UPDATED | Notification 중복으로 등록 |
+  |117| COOL_TIME_ERROR | 명령 시간이 쿨타임을 초과할때 발생하는 에러 |
+  |118| INTERNAL_SERVER_ERROR | 내부 서버 오류 |
+  |||
 
-
-
-
-
-
-
-
-
-
+****
