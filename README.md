@@ -2,7 +2,7 @@
 ##  작성 이력
 | 날짜 | 내용 | 작성자 |
 |:--------:|:---------:|:-------|
-|2020-11-17| 최초 작성 | 이창주 |
+|2020-11-18| 최초 작성 | 이창주 |
 |          |           |        |
 </br>
 
@@ -16,6 +16,7 @@
 
 ### 1.3 프로토콜
       - HTTP/1.1
+      - HTTPS
 
 ### 1.4 용어 정의 및 약어
       - API : Application Program Interface
@@ -40,7 +41,6 @@
 1. 인증 토큰 요청
    * 인증 토큰 발급 후 이 후 AIR-DEEP 으로의 모든 요청은 TOKEN 을 포함하여야 한다. 
 2. 센서 데이터 전달
-   * 
 3. 흡연 탐지 결과 전달
 
     <img src="https://github.com/changju/airdeep/raw/master/airdeep-seq-1.jpg" width="60%" title="air deep flow diagram" alt="Airdeepflow"></img>
@@ -63,7 +63,7 @@
 
 * HTTP Request Header 
    ```
-   Content-Type : application/json
+   Content-Type: application/json
    ```
 </br>
 
@@ -107,8 +107,8 @@
 
 * HTTP Request Header 
 
-      - Content-Type : application/json
-      - Authorization : 인증 과정에서 얻은 API Token
+      - Content-Type: application/json
+      - Authorization: 인증 과정에서 얻은 API Token
 
 * HTTP Request Body
   ```
@@ -185,8 +185,8 @@
 
 * HTTP Request Header 
 
-      - Content-Type : application/json
-      - Authorization : 인증 과정에서 얻은 API Token
+      - Content-Type: application/json
+      - Authorization: 인증 과정에서 얻은 API Token
 
 * HTTP Request Body
   ```
